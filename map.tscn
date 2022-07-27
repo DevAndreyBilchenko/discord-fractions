@@ -22,7 +22,6 @@ camera_np = NodePath("../Camera2D")
 hex_ps = ExtResource( 10 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( -700, -403 )
 anchor_mode = 0
 current = true
 

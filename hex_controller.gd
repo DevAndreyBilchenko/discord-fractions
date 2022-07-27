@@ -10,7 +10,6 @@ var drag_item
 
 func _ready():
 	var _err = get_node(hex_list_np).connect("button_add", self, "_on_hex_list_button_add")
-
 	set_process_input(false)
 
 
@@ -19,6 +18,16 @@ func _input(event):
 		drag_item.position = camera.position + event.position
 	
 	if event is InputEventMouseButton && event.button_index == BUTTON_LEFT  && event.pressed == false:
+		var x_index = round(drag_item.position.x / (drag_item.size - drag_item.gap_x))
+		var y_up = 0
+		
+		if int(x_index) % 2 == 0:
+			y_up = drag_item.size_y / 2
+		
+		drag_item.position = Vector2(
+			x_index * (drag_item.size - drag_item.gap_x),
+			round(drag_item.position.y / (drag_item.size_y)) * drag_item.size_y + y_up
+		)
 		set_process_input(false)
 
 

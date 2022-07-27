@@ -1,6 +1,8 @@
 extends Node
 export(int) var size = 15
 
+var size_y setget , _get_size_y
+var gap_x setget , _get_gap_x
 var data: HexagonData
 
 export(NodePath) var background_np
@@ -41,3 +43,10 @@ func scale_border():
 
 func _on_data_changed():
 	update_color()
+
+
+func _get_size_y():
+	return sqrt(3) / 2 * size / 2 * 2
+
+func _get_gap_x():
+	return size / 4
