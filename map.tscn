@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://button_sidebar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sidebar_background.tscn" type="PackedScene" id=2]
@@ -8,10 +8,42 @@
 [ext_resource path="res://short_sidebar_hex_base.tscn" type="PackedScene" id=6]
 [ext_resource path="res://main_sidebar_hex_editor.gd" type="Script" id=7]
 [ext_resource path="res://sidebar_controller.gd" type="Script" id=8]
+[ext_resource path="res://hex_controller.gd" type="Script" id=9]
+[ext_resource path="res://hexagon.tscn" type="PackedScene" id=10]
+[ext_resource path="res://icon.png" type="Texture" id=11]
 
 [node name="Root" type="Node"]
 
+[node name="HexController" type="Node" parent="."]
+script = ExtResource( 9 )
+hex_list_np = NodePath("../CanvasLayer/BaseHUD/ShortSidebar/HexList")
+hex_layout_np = NodePath("../Map/HexLayout")
+camera_np = NodePath("../Camera2D")
+hex_ps = ExtResource( 10 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( -700, -403 )
+anchor_mode = 0
+current = true
+
 [node name="Map" type="Node2D" parent="."]
+
+[node name="HexLayout" type="Node2D" parent="Map"]
+
+[node name="Icon" type="Sprite" parent="Map"]
+visible = false
+position = Vector2( -573, -292 )
+texture = ExtResource( 11 )
+
+[node name="Icon2" type="Sprite" parent="Map"]
+visible = false
+position = Vector2( -1, -7 )
+texture = ExtResource( 11 )
+
+[node name="Icon3" type="Sprite" parent="Map"]
+visible = false
+position = Vector2( 517, 273 )
+texture = ExtResource( 11 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

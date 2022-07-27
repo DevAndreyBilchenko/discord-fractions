@@ -26,6 +26,7 @@ func is_visible(target: String):
 
 func _on_hex_list_button_add(button):
 	button.connect("pressed", self, "_on_hex_button_pressed")
+	button.connect("drag_start", self, "_on_hex_button_drag_start")
 
 func _on_hex_button_pressed(data):
 	if is_visible("main_sidebar") && is_visible("hex_editor"):
@@ -37,7 +38,15 @@ func _on_hex_button_pressed(data):
 		show("hex_editor")
 	
 	current_hex_button_data = data
-	
+
+
+func _on_hex_button_drag_start(_data):
+	close("hex_list")
+	close("hex_editor")
+	close("main_sidebar")
+	close("short_sidebar")
+
+
 func _on_action_button_pressed(type: String):
 	match (type):
 		"hex":

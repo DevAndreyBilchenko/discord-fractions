@@ -3,8 +3,8 @@ export(int) var size = 15
 
 var data: HexagonData
 
-onready var background = $Background
-onready var border = $HexagonBorder
+export(NodePath) var background_np
+export(NodePath) var border_np
 
 func _ready():
 	create_polygon()
@@ -14,12 +14,12 @@ func _ready():
 func setup(_data: HexagonData):
 	data = _data
 	update_color()
-	data.connect("changed", self, "_on_data_changed")
+	var _err = data.connect("changed", self, "_on_data_changed")
 
 
 func update_color():
-	background.color = data.background_color
-	border.modulate = data.border_color
+	get_node(background_np).color = data.background_color
+	get_node(border_np).modulate = data.border_color
 
 
 func create_polygon():
@@ -30,10 +30,11 @@ func create_polygon():
 
 	points = PoolVector2Array(points)
 
-	background.polygon = points
+	get_node(background_np).polygon = points
 
 
 func scale_border():
+	var border = get_node(border_np)
 	var scale = float(size) / float(border.texture.get_width())
 	border.scale = Vector2(scale, scale)
 
