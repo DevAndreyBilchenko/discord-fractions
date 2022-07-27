@@ -7,7 +7,7 @@ onready var background = $Background
 onready var border = $Border
 
 func _ready():
-	data.connect("changed", self, "_on_data_changed")
+	var _err = data.connect("changed", self, "_on_data_changed")
 	setup()
 	
 func setup():

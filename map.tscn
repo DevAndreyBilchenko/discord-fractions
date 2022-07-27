@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://button_sidebar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sidebar_background.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://short_sidebar_hex.gd" type="Script" id=5]
 [ext_resource path="res://short_sidebar_hex_base.tscn" type="PackedScene" id=6]
 [ext_resource path="res://main_sidebar_hex_editor.gd" type="Script" id=7]
+[ext_resource path="res://sidebar_controller.gd" type="Script" id=8]
 
 [node name="Root" type="Node"]
 
@@ -20,6 +21,14 @@ anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SidebarController" type="Node" parent="CanvasLayer/BaseHUD"]
+script = ExtResource( 8 )
+short_sidebar_np = NodePath("../ShortSidebar")
+main_sidebar_np = NodePath("../MainSidebar")
+hex_list_np = NodePath("../ShortSidebar/HexList")
+hex_editor_np = NodePath("../MainSidebar/Wrap/MainSidebarHexEditor")
+action_buttons = [ NodePath("../Buttons/VBoxContainer/HexActionButton") ]
 
 [node name="Buttons" type="Control" parent="CanvasLayer/BaseHUD"]
 anchor_left = 1.0
@@ -41,8 +50,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" parent="CanvasLayer/BaseHUD/Buttons/VBoxContainer" instance=ExtResource( 1 )]
-toggle_target = NodePath("../../../ShortSidebar/ShortSidebarScroll")
+[node name="HexActionButton" parent="CanvasLayer/BaseHUD/Buttons/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 275.0
+margin_bottom = 325.0
+type = "hex"
 
 [node name="ShortSidebar" type="Control" parent="CanvasLayer/BaseHUD"]
 anchor_left = 1.0
@@ -56,19 +67,19 @@ __meta__ = {
 
 [node name="SidebarBackground" parent="CanvasLayer/BaseHUD/ShortSidebar" instance=ExtResource( 2 )]
 
-[node name="ShortSidebarScroll" parent="CanvasLayer/BaseHUD/ShortSidebar" instance=ExtResource( 3 )]
+[node name="HexList" parent="CanvasLayer/BaseHUD/ShortSidebar" instance=ExtResource( 3 )]
 script = ExtResource( 5 )
 editor_np = NodePath("../../MainSidebar/Wrap/MainSidebarHexEditor")
 hex_preview_button = ExtResource( 6 )
 
-[node name="VBoxContainer" parent="CanvasLayer/BaseHUD/ShortSidebar/ShortSidebarScroll" index="0"]
+[node name="VBoxContainer" parent="CanvasLayer/BaseHUD/ShortSidebar/HexList" index="0"]
 margin_right = 92.0
 margin_bottom = 55.0
 
-[node name="AddMarker" type="Control" parent="CanvasLayer/BaseHUD/ShortSidebar/ShortSidebarScroll/VBoxContainer" index="0"]
+[node name="AddMarker" type="Control" parent="CanvasLayer/BaseHUD/ShortSidebar/HexList/VBoxContainer" index="0"]
 margin_right = 92.0
 
-[node name="AddButton" parent="CanvasLayer/BaseHUD/ShortSidebar/ShortSidebarScroll/VBoxContainer" index="1" instance=ExtResource( 4 )]
+[node name="AddButton" parent="CanvasLayer/BaseHUD/ShortSidebar/HexList/VBoxContainer" index="1" instance=ExtResource( 4 )]
 margin_top = 5.0
 margin_bottom = 55.0
 
@@ -128,5 +139,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[editable path="CanvasLayer/BaseHUD/Buttons/VBoxContainer/Button"]
-[editable path="CanvasLayer/BaseHUD/ShortSidebar/ShortSidebarScroll"]
+[editable path="CanvasLayer/BaseHUD/Buttons/VBoxContainer/HexActionButton"]
+[editable path="CanvasLayer/BaseHUD/ShortSidebar/HexList"]

@@ -1,11 +1,11 @@
-extends Button
+extends Control
 
-export(NodePath) var toggle_target
+signal pressed(data)
+
+export(String, "hex", "region") var type = ""
 
 func _ready():
-	var _err = connect("pressed", self, "_on_button_pressed")
-	
+	var _err = get_node("Button").connect("pressed", self, "_on_button_pressed")
+
 func _on_button_pressed():
-	var target = get_node(toggle_target)
-	target.get_parent().visible = !target.visible
-	target.visible = !target.visible
+	emit_signal("pressed", type)
