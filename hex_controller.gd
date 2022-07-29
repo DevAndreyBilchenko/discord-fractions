@@ -28,8 +28,18 @@ func _input(event):
 			x_index * (drag_item.size - drag_item.gap_x),
 			round(drag_item.position.y / (drag_item.size_y)) * drag_item.size_y + y_up
 		)
+		
 		set_process_input(false)
-
+		
+		yield(get_tree(), "physics_frame")
+		
+		if drag_item.has_collide():
+			drag_item.queue_free()
+		else:
+			drag_item.monitoring = false
+			drag_item.monitorable = true
+			#save item
+			pass
 
 func _on_hex_list_button_add(button):
 	var _err = button.connect("drag_start", self, "_on_hex_button_drag")
